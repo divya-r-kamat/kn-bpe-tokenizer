@@ -3,7 +3,7 @@
 This project involves building a custom Byte Pair Encoding (BPE) tokenizer for the **Kannada language**.
 
 ## Dataset
-The dataset used for this is [ai4bharat/samanantar](https://huggingface.co/datasets/ai4bharat/samanantar) This dataset provides a rich collection of parallel sentences in Indian languages, making it ideal for training language-specific tokenizers.
+The dataset used for this is [ai4bharat/samanantar](https://huggingface.co/datasets/ai4bharat/samanantar) This dataset provides a rich collection of parallel sentences in Indian languages, making it ideal for training language-specific tokenizers. Samanantar is the largest publicly available parallel corpora collection for Indic language: Assamese, Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi, Oriya, Punjabi, Tamil, Telugu. The corpus has 49.6M sentence pairs between English to Indian Languages.
 
 The Kannada portion of the `ai4bharat/samanantar` dataset is used, text corpus has 10,000 Kannada sentences:
 
@@ -195,3 +195,40 @@ Each merge represents one iteration where the most common neighboring token pair
 - Final vocab size: The tokenizer now has 5000 learned subword tokens.
 - Compression ratio: ~3.75× reduction means that the text can now be represented much more compactly without losing linguistic detail.
 - Vocabulary file: The resulting token definitions and merge rules are saved in model/vocab.json.
+
+
+### Try It Out on Hugging Face!
+
+You can explore and interact with the Kannada BPE Tokenizer directly on Hugging Face Spaces:
+
+👉 [dkamat/kn-bpe-tokenizer](https://huggingface.co/spaces/dkamat/kn-bpe-tokenizer)
+
+<img width="1626" height="742" alt="image" src="https://github.com/user-attachments/assets/6317b009-1c58-4999-8ef5-01eaacb574ef" />
+
+The app is built with Gradio, providing an intuitive web interface that lets you visualize how Kannada text is tokenized using Byte Pair Encoding (BPE) in real-time. It allows you to:
+- Input any Kannada text.
+- View tokens and token IDs — observe how subwords and characters combine.
+- Color-coded token visualization — makes patterns and merges easy to understand.
+- Inspect token table — explore the mapping between token IDs and text fragments.
+
+## References & Citation
+- Dataset : This project uses the Kannada-English parallel corpus from the AI4Bharat Samanantar Dataset - https://huggingface.co/datasets/ai4bharat/samanantar
+
+        @article{10.1162/tacl_a_00452,
+            author = {Ramesh, Gowtham and Doddapaneni, Sumanth and Bheemaraj, Aravinth and Jobanputra, Mayank and AK, Raghavan and Sharma, Ajitesh and Sahoo, Sujit and Diddee, Harshita and J, Mahalakshmi and Kakwani, Divyanshu and Kumar, Navneet and Pradeep, Aswin and Nagaraj, Srihari and Deepak, Kumar and Raghavan, Vivek and Kunchukuttan, Anoop and Kumar, Pratyush and Khapra, Mitesh Shantadevi},
+            title = "{Samanantar: The Largest Publicly Available Parallel Corpora Collection for 11 Indic Languages}",
+            journal = {Transactions of the Association for Computational Linguistics},
+            volume = {10},
+            pages = {145-162},
+            year = {2022},
+            month = {02},
+            abstract = "{We present Samanantar, the largest publicly available parallel corpora collection for Indic languages. The collection contains a total of 49.7 million sentence pairs between English and 11 Indic languages (from two language families). Specifically, we compile 12.4 million sentence pairs from existing, publicly available parallel corpora, and additionally mine 37.4 million sentence pairs from the Web, resulting in a 4× increase. We mine the parallel sentences from the Web by combining many corpora, tools, and methods: (a) Web-crawled monolingual corpora, (b) document OCR for extracting sentences from scanned documents, (c) multilingual representation models for aligning sentences, and (d) approximate nearest neighbor search for searching in a large collection of sentences. Human evaluation of samples from the newly mined corpora validate the high quality of the parallel sentences across 11 languages. Further, we extract 83.4 million sentence
+                            pairs between all 55 Indic language pairs from the English-centric parallel corpus using English as the pivot language. We trained multilingual NMT models spanning all these languages on Samanantar which outperform existing models and baselines on publicly available benchmarks, such as FLORES, establishing the utility of Samanantar. Our data and models are available publicly at Samanantar and we hope they will help advance research in NMT and multilingual NLP for Indic languages.}",
+            issn = {2307-387X},
+            doi = {10.1162/tacl_a_00452},
+            url = {https://doi.org/10.1162/tacl\_a\_00452},
+            eprint = {https://direct.mit.edu/tacl/article-pdf/doi/10.1162/tacl\_a\_00452/1987010/tacl\_a\_00452.pdf},
+        }
+
+
+
