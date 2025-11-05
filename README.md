@@ -5,7 +5,7 @@ This project involves building a custom Byte Pair Encoding (BPE) tokenizer for t
 ## Dataset
 The dataset used for this is [ai4bharat/samanantar](https://huggingface.co/datasets/ai4bharat/samanantar) This dataset provides a rich collection of parallel sentences in Indian languages, making it ideal for training language-specific tokenizers.
 
-The Kannada portion of the `ai4bharat/samanantar` dataset is used:
+The Kannada portion of the `ai4bharat/samanantar` dataset is used, text corpus has 10,000 Kannada sentences:
 
 ```python
 from datasets import load_dataset
