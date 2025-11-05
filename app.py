@@ -1,6 +1,3 @@
-# ============================================================
-# FILE: app.py
-# ============================================================
 """
 Gradio app for Kannada BPE Tokenizer visualization.
 Usage: python app.py
@@ -31,6 +28,17 @@ def tokenize_and_visualize(text: str, tokenizer: KannadaBPETokenizer):
     # Get token IDs
     token_ids = tokenizer.encode(text)
     
+    # Create a mapping of unique token IDs to colors
+    unique_token_ids = []
+    token_id_to_color = {}
+    color_idx = 0
+    
+    for tid in token_ids:
+        if tid not in token_id_to_color:
+            token_id_to_color[tid] = COLORS[color_idx % len(COLORS)]
+            unique_token_ids.append(tid)
+            color_idx += 1
+    
     # Build token visualization
     html_parts = ['<div style="font-size: 20px; line-height: 2.8; font-family: Noto Sans Kannada, Arial, sans-serif; padding: 15px; background: #f9f9f9; border-radius: 8px;">']
     
@@ -44,7 +52,7 @@ def tokenize_and_visualize(text: str, tokenizer: KannadaBPETokenizer):
         
         for tid in chunk_tokens:
             token_text = tokenizer.vocab[tid]
-            color = COLORS[token_idx % len(COLORS)]
+            color = token_id_to_color[tid]  # Use consistent color for same token ID
             
             # Store token info for display
             token_info_list.append((token_idx, tid, token_text, color))
@@ -82,6 +90,7 @@ def tokenize_and_visualize(text: str, tokenizer: KannadaBPETokenizer):
                 border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         <h2 style="color: white; margin: 0; font-size: 48px; font-weight: bold;">{len(token_ids)}</h2>
         <p style="color: rgba(255,255,255,0.9); margin: 5px 0 0 0; font-size: 18px;">Total Tokens</p>
+        <p style="color: rgba(255,255,255,0.8); margin: 5px 0 0 0; font-size: 14px;">{len(unique_token_ids)} Unique Tokens</p>
     </div>
     """
     
@@ -136,10 +145,10 @@ def create_app(tokenizer: KannadaBPETokenizer):
                 gr.Examples(
                     examples=[
                         ["ನಮಸ್ಕಾರ, ಇದು ಕನ್ನಡ ಟೋಕನೈಜರ್ ಆಗಿದೆ"],
-                        ["ಕನ್ನಡ ಭಾಷೆಯಲ್ಲಿ BPE tokenization ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ?"],
-                        ["Hello World! ನಮಸ್ಕಾರ 123"],
-                        ["ಯಂತ್ರ ಕಲಿಕೆಯಲ್ಲಿ ಟೋಕನೈಜೇಶನ್ ಮುಖ್ಯವಾಗಿದೆ"],
-                        ["ಕನ್ನಡ ಮತ್ತು English mixed content ಸಹ ಕೆಲಸ ಮಾಡುತ್ತದೆ"],
+                        ["ಅವನು ಬರುತ್ತಿದ್ದಾನೆ ಎಂದು ನನಗೆ ಗೊತ್ತು."],
+                        ["ಅವಳು ಕೆಲಸ ಮುಗಿಸಿದ ನಂತರ ಮನೆಗೆ ಹೋದಳು."],
+                        ["ನಾನು ಸೂರ್ಯ ಮುಳುಗುವುದಾದ ಯಾವಾಗ ಹೊರಗಡೆ ಹೋದೆನು."],
+                        ["ಅವಳು ಮನೆಗೆ ಬಾರದ ಕಾರಣ, ಏಕೆಂದರೆ ಅವಳು ಕೆಲಸದಲ್ಲಿ ಬ್ಯುಸಿಯಾಗಿದ್ದಳು."],
                     ],
                     inputs=[input_text]
                 )
@@ -158,9 +167,6 @@ def create_app(tokenizer: KannadaBPETokenizer):
                     label="Token IDs",
                     value="<p style='color: gray;'>Token IDs will appear here</p>"
                 )
-            
-           
-
         
         gr.Markdown(
             """
@@ -171,7 +177,7 @@ def create_app(tokenizer: KannadaBPETokenizer):
               - Token count at the top
               - Colored tokens (hover to see details)
               - Complete token ID table at the bottom
-            - Each color represents a unique token position
+            - **Identical tokens share the same color** - easily spot repeated tokens!
             """
         )
         
