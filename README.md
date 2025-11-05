@@ -1,4 +1,4 @@
-# Custom Byte Pair Encoding (BPE) Tokenizer for Kannada
+# Custom Byte Pair Encoding (BPE) Tokenizer for Kannada Language
 
 This project involves building a custom Byte Pair Encoding (BPE) tokenizer for the **Kannada language**.
 
