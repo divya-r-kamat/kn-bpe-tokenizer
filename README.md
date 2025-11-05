@@ -127,14 +127,17 @@ Let’s break down what this pattern does:
 Only after this pre-tokenization step does the Byte Pair Encoding (BPE) algorithm begin merging frequent symbol pairs within these chunks — building up a vocabulary of subword units that balance compactness with linguistic richness.
 
 ## Project Structure:
-    # kn-bpe-tokenizer/
-    # ├── tokenizer.py           # Tokenizer class
-    # ├── train.py              # Training script
-    # ├── app.py                # Gradio app
-    # ├── requirements.txt      # Dependencies
-    # ├── model/
-    # │   └── vocab.json        # Saved vocabulary
-    # └── README.md
+    kn-bpe-tokenizer/
+    ├── tokenizer.py          # Core tokenizer implementation
+    ├── train.py              # Training script
+    ├── app.py                # Gradio web interface
+    ├── requirements.txt      # Python dependencies
+    ├── Dockerfile            # Docker configuration
+    ├── docker-compose.yml    # Docker Compose configuration
+    ├── .dockerignore         # Docker ignore file
+    ├── model/
+    │   └── vocab.json        # Trained vocabulary (generated)
+    └── README.md             # This file
 
 
 ## Training Log
