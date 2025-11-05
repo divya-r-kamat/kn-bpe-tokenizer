@@ -1,0 +1,17 @@
+# ============================================================
+# FILE: docker-compose.yml
+# ============================================================
+version: '3.8'
+
+services:
+  kannada-tokenizer:
+    build: .
+    container_name: kannada-bpe-tokenizer
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./model:/app/model
+    restart: unless-stopped
+    environment:
+      - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7860
