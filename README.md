@@ -2,7 +2,7 @@
 
 This project involves building a custom Byte Pair Encoding (BPE) tokenizer for the **Kannada language**.
 
-### Dataset
+## Dataset
 The dataset used for this is [ai4bharat/samanantar](https://huggingface.co/datasets/ai4bharat/samanantar) This dataset provides a rich collection of parallel sentences in Indian languages, making it ideal for training language-specific tokenizers.
 
 The Kannada portion of the `ai4bharat/samanantar` dataset is used:
@@ -126,7 +126,7 @@ Let’s break down what this pattern does:
 
 Only after this pre-tokenization step does the Byte Pair Encoding (BPE) algorithm begin merging frequent symbol pairs within these chunks — building up a vocabulary of subword units that balance compactness with linguistic richness.
 
-# Project Structure:
+## Project Structure:
     # kn-bpe-tokenizer/
     # ├── tokenizer.py           # Tokenizer class
     # ├── train.py              # Training script
@@ -135,3 +135,60 @@ Only after this pre-tokenization step does the Byte Pair Encoding (BPE) algorith
     # ├── model/
     # │   └── vocab.json        # Saved vocabulary
     # └── README.md
+
+
+## Training Log
+
+    Training tokenizer with vocab size: 5000
+    Initial vocab size (unique characters): 195
+    Training on 576848 characters
+    Merged 1000/4805 pairs, vocab size: 1195
+    Merged 2000/4805 pairs, vocab size: 2195
+    Merged 3000/4805 pairs, vocab size: 3195
+    Merged 4000/4805 pairs, vocab size: 4195
+    
+    ============================================================
+    Training Complete!
+    ============================================================
+    Final vocab size: 5000
+    Original characters: 576848
+    Final BPE tokens: 153632
+    Compression ratio: 3.75x
+    ============================================================
+    
+    Saved vocabulary to model/vocab.json
+
+### Initial Vocabulary
+
+When training begins, the tokenizer first builds a base vocabulary of all unique characters observed in the dataset.
+
+    Initial vocab size (unique characters): 195
+    Training on 576,848 characters
+
+This includes Kannada letters, numerals, English alphabets (if any mixed-language text is present), spaces, and punctuation marks. These 195 symbols serve as the starting tokens for the Byte Pair Encoding process.
+
+### Iterative Merging
+
+Next, the tokenizer performs merge operations — repeatedly identifying the most frequent pair of symbols (or subwords) and combining them into a single new token.
+
+    Merged 1000/4805 pairs, vocab size: 1195
+    Merged 2000/4805 pairs, vocab size: 2195
+    Merged 3000/4805 pairs, vocab size: 3195
+    Merged 4000/4805 pairs, vocab size: 4195
+
+Each merge represents one iteration where the most common neighboring token pair (like “ಕ” + “ಾ” → “ಕಾ”) is merged to form a new subword. Over time, these merges create larger, linguistically meaningful tokens — such as suffixes, root words, and common word fragments — improving both efficiency and linguistic representation.
+
+### Final Summary
+
+    ============================================================
+    Training Complete!
+    ============================================================
+    Final vocab size: 5000
+    Original characters: 576848
+    Final BPE tokens: 153632
+    Compression ratio: 3.75x
+    ============================================================
+
+- Final vocab size: The tokenizer now has 5000 learned subword tokens.
+- Compression ratio: ~3.75× reduction means that the text can now be represented much more compactly without losing linguistic detail.
+- Vocabulary file: The resulting token definitions and merge rules are saved in model/vocab.json.
