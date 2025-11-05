@@ -121,22 +121,6 @@ def create_app(tokenizer: KannadaBPETokenizer):
         )
         
         with gr.Row():
-            # Left Column - Output Section
-            with gr.Column(scale=1):
-                token_count = gr.HTML(
-                    label="Token Count",
-                    value="<p style='color: gray;'>Token count will appear here</p>"
-                )
-                
-                output_html = gr.HTML(
-                    label="Tokens (Hover to see details)"
-                )
-                
-                token_ids_display = gr.HTML(
-                    label="Token IDs",
-                    value="<p style='color: gray;'>Token IDs will appear here</p>"
-                )
-            
             # Right Column - Input Section
             with gr.Column(scale=1):
                 input_text = gr.Textbox(
@@ -159,6 +143,24 @@ def create_app(tokenizer: KannadaBPETokenizer):
                     ],
                     inputs=[input_text]
                 )
+            # Left Column - Output Section
+            with gr.Column(scale=1):
+                token_count = gr.HTML(
+                    label="Token Count",
+                    value="<p style='color: gray;'>Token count will appear here</p>"
+                )
+                
+                output_html = gr.HTML(
+                    label="Tokens (Hover to see details)"
+                )
+                
+                token_ids_display = gr.HTML(
+                    label="Token IDs",
+                    value="<p style='color: gray;'>Token IDs will appear here</p>"
+                )
+            
+           
+
         
         gr.Markdown(
             """
